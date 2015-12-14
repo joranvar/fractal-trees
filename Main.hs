@@ -28,13 +28,16 @@ tree start size splits =
   in
     trunks ++ branches ++ concat [tree st (size `div` 2) (splits - 1) | st <- take 2 $ reverse branches]
 
-formatTree :: Int -> Tree -> [String]
-formatTree width = map (\points -> map (\x -> if x `elem` map (\(Point x _) -> x) points then '1' else '_') [1..width])
-                   . groupBy (\(Point _ y1) (Point _ y2) -> y1 == y2)
-                   . sortOn (\(Point _ y) -> y)
+formatTree :: Int -> Int -> Tree -> [String]
+formatTree width height =
+  take height
+  . flip (++) (repeat (replicate width '_'))
+  . map (\points -> map (\x -> if x `elem` map (\(Point x _) -> x) points then '1' else '_') [1..width])
+  . groupBy (\(Point _ y1) (Point _ y2) -> y1 == y2)
+  . sortOn (\(Point _ y) -> y)
 
 main :: IO ()
 main = do
   sizeStr <- getLine
   let splits = read sizeStr
-  mapM_ putStrLn $ reverse $ formatTree 100 $ tree (Point 50 0) 16 splits
+  mapM_ putStrLn $ reverse $ formatTree 100 63 $ tree (Point 50 0) 16 splits
