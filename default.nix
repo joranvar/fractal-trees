@@ -1,9 +1,9 @@
-{ stdenv, haskellngPackages }:
+{ stdenv, haskellPackages }:
 
 let
-  env = haskellngPackages.ghcWithPackages (p: with p; [
+  env = haskellPackages.ghcWithPackages (p: with p; [
     happy
-    #BROKEN ghc-mod
+    ghc-mod
     hlint
     hoogle
     structured-haskell-mode

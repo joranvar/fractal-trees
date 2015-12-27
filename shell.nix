@@ -1,6 +1,6 @@
 { pkgs ? (import <nixpkgs> {}) }:
 
 (import ./default.nix) {
-    stdenv            = pkgs.stdenv;
-    haskellngPackages = pkgs.haskellngPackages;
+    stdenv          = pkgs.stdenv;
+    haskellPackages = pkgs.haskellPackages;
   }
